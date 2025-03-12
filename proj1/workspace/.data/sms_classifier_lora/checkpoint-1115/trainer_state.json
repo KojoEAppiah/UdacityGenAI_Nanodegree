@@ -1,0 +1,42 @@
+{
+  "best_metric": 0.6902235150337219,
+  "best_model_checkpoint": ".data/sms_classifier_lora/checkpoint-1115",
+  "epoch": 1.0,
+  "eval_steps": 500,
+  "global_step": 1115,
+  "is_hyper_param_search": false,
+  "is_local_process_zero": true,
+  "is_world_process_zero": true,
+  "log_history": [
+    {
+      "epoch": 0.45,
+      "learning_rate": 1.1031390134529149e-05,
+      "loss": 0.8201,
+      "step": 500
+    },
+    {
+      "epoch": 0.9,
+      "learning_rate": 2.062780269058296e-06,
+      "loss": 0.532,
+      "step": 1000
+    },
+    {
+      "epoch": 1.0,
+      "eval_accuracy": 0.8556053811659193,
+      "eval_loss": 0.6902235150337219,
+      "eval_runtime": 21.6239,
+      "eval_samples_per_second": 51.563,
+      "eval_steps_per_second": 12.902,
+      "step": 1115
+    }
+  ],
+  "logging_steps": 500,
+  "max_steps": 1115,
+  "num_input_tokens_seen": 0,
+  "num_train_epochs": 1,
+  "save_steps": 500,
+  "total_flos": 542723894369280.0,
+  "train_batch_size": 4,
+  "trial_name": null,
+  "trial_params": null
+}

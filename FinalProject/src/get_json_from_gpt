@@ -1,0 +1,58 @@
+from openai import OpenAI
+
+
+openai_client = OpenAI(
+    base_url = "https://openai.vocareum.com/v1", #os.environ["OPENAI_API_BASE"]
+    api_key = "voc-773311951266772589854675381736bc788.33953517" #os.environ["OPENAI_API_KEY"]
+)
+
+description = """Neighborhood: Pinecrest Meadows
+Price: $600,000
+Bedrooms: 3
+Bathrooms: 2.5
+House Size: 2,200 sqft
+
+Description: Discover comfort and style in this charming 3-bedroom, 2.5-bathroom home nestled in the popular Pinecrest Meadows neighborhood. The welcoming interior features a cozy fireplace, modern kitchen with granite countertops, and a luxurious master suite with a spa-like bath. Enjoy outdoor gatherings in the private backyard oasis with a patio and lush landscaping. Perfect for families or those seeking a peaceful retreat, this Pinecrest Meadows home offers a blend of modern conveniences and warmth for everyday living.
+
+Neighborhood Description: Pinecrest Meadows is a family-friendly community known for its tree-lined streets, community parks, and proximity to top-rated schools. Residents can enjoy local farmers markets, boutique shops, and cozy cafes within walking distance. With easy access to hiking trails and recreational facilities, Pinecrest Meadows offers a balanced lifestyle for residents seeking a close-knit community atmosphere.""",
+
+
+prompt_template = f"{description} \n ------------------ \nConvert the content above into json."
+
+
+def get_json_from_description(prompt_template):
+    try:
+        response = openai_client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "You will follow instructions precisely."
+                        }
+                    ]
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": prompt_template
+                        }
+                    ]
+                }
+            ],
+            temperature=1,
+            max_completion_tokens=1260,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        # The response is a JSON object containing more information than the generated review. We want to return only the message content
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"An error occurred: {e}"
+    
+print(get_json_from_description(prompt_template))
